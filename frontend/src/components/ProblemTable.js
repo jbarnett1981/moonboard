@@ -37,8 +37,8 @@ const ProblemTable_ = ({data, dispatch}) =>{
     <MaterialTable
     data={data}
     columns = {[
-        {title: "Nome",render: rowData => rowData[1]},
-        {title: "Grado",render: rowData => rowData[2]},
+        {title: "Name",render: rowData => rowData[1]},
+        {title: "Grade",render: rowData => rowData[2]},
         {title: "Setter",render: rowData => rowData[3]},
         {title:"Benchmark" ,render: rowData => <Benchmark benchmark={rowData[4]}/> },
     ]}

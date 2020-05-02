@@ -49,6 +49,7 @@ const styles = theme => ({
 });
 
 const MultipleSelect = ({classes, name, values, onChange, selected}) => {
+    const selectedArr = selected ? selected : [];
 
     return (
         <FormControl className={classes.formControl}>
@@ -56,15 +57,15 @@ const MultipleSelect = ({classes, name, values, onChange, selected}) => {
             <Select
                 multiple
                 autoWidth={false}
-                value={selected}
+                value={selectedArr}
                 onChange={onChange}
                 input={<Input />}
-                renderValue={selected => selected.sort().join(', ')}
+                renderValue={selectedArr => selectedArr.sort().join(', ')}
                 className={classes.myselect}
             >
                 {values.map(val => (
                     <MenuItem key={val} value={val} >
-                        <Checkbox checked={selected.indexOf(val) > -1} />
+                        <Checkbox checked={selectedArr.indexOf(val) > -1} />
                         <ListItemText primary={val} />
                     </MenuItem>
                 ))}
@@ -77,23 +78,23 @@ const SearchForm = ({ classes, grades, holds, search_param, onChange, onCancel, 
         return (
             <div className={classes.root} >
                 <Typography variant="h3" align={'center'} gutterBottom>
-                    Ricerca problemi
+                    Search Problems
                 </Typography>
                 <div className={classes.row} >
                         <TextField
                             id="name"
-                            label="Nome"
+                            label="Name"
                             className={classes.textField}
-                            value={search_param.name}
-                            onChange={onChange('name')}
+                            value={search_param.Name}
+                            onChange={onChange('Name')}
                             margin="normal"
                         />
                         <TextField
                             id="author"
-                            label="Tracciatore"
+                            label="Author"
                             className={classes.textField}
-                            value={search_param.author}
-                        onChange={onChange('author')}
+                            value={search_param.Setter}
+                        onChange={onChange('Setter')}
                             margin="normal"
                         />
                 </div >
@@ -101,8 +102,8 @@ const SearchForm = ({ classes, grades, holds, search_param, onChange, onCancel, 
                 <MultipleSelect
                     name="grades"
                     values={grades}
-                    selected={search_param.grades}
-                    onChange={onChange("grades")}
+                    selected={search_param.Grades}
+                    onChange={onChange("Grades")}
                     classes={classes}
                 />
                                 
@@ -112,7 +113,7 @@ const SearchForm = ({ classes, grades, holds, search_param, onChange, onCancel, 
                     className={classes.button} 
                     onClick={onCancel}
                     >
-                        Esci
+                        Back
                     </Button>
                     <Button 
                     variant="contained" 
@@ -120,7 +121,7 @@ const SearchForm = ({ classes, grades, holds, search_param, onChange, onCancel, 
                     className={classes.button}
                     onClick={onSearch(search_param)}
                     >
-                        Cerca
+                        Search
                     </Button>
                 </span>
             </div>

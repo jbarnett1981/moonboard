@@ -30,7 +30,7 @@ const initialState = {
     history: [],
 };
 
-const ws = new WebSocket('ws://0.0.0.0:6789/')
+const ws = new WebSocket('ws://raspberrypi:6789/')
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, 
     initialState, 

@@ -9,7 +9,7 @@ import  WbIncandescent from '@material-ui/icons/WbIncandescent';
 import  Search from '@material-ui/icons/Search';
 import  Info from '@material-ui/icons/Info';
 import { connect } from 'react-redux';
-import {search_enter,illuminate_problem} from '../redux/actions'
+import {search_enter, illuminate_problem, set_selected_problem} from '../redux/actions'
 
 
 const styles = {
@@ -53,9 +53,8 @@ const MoonAppBar__ = withStyles(styles)(MoonAppBar_);
 
 const mapDispatchToProps = (dispatch) => ({
     onSearch: () => { dispatch(search_enter); },
-    onInfo: () => {dispatch(illuminate_problem)},
+    onInfo: (problem) =>()=> {dispatch(set_selected_problem(problem))},
     onIlluminate: (problem)=>() => { dispatch(illuminate_problem(problem))},
-
 }
 )
 const MoonAppBar = connect(
