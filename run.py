@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     parser.add_argument('--driver_type',
                         help='driver type, depends on leds and device controlling the led.',
-                        choices=['PiWS281x', 'WS2801', 'SimPixel'],
+                        choices=['PiWS281x', 'WS2801', 'SimPixel', "WS281X"],
                         default='WS2801')
 
     parser.add_argument('--brightness',  default=100, type=int)
