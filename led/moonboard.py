@@ -54,11 +54,11 @@ LED_LAYOUT = {
 }
 
 class MoonBoard:
-    DEFAULT_PROBLEM_COLORS = {'START':COLORS.blue,'TOP':COLORS.red,'MOVES':COLORS.green}
+    DEFAULT_PROBLEM_COLORS = {'START':COLORS.green,'TOP':COLORS.red,'MOVES':COLORS.blue}
     DEFAULT_COLOR = COLORS.blue
     X_GRID_NAMES = string.ascii_uppercase[0:11]
     NUM_PIXELS = 198
-    DEFAULT_BRIGHTNESS = 150
+    DEFAULT_BRIGHTNESS = 25
 
     def __init__(self, driver_type, led_layout=None, brightness=DEFAULT_BRIGHTNESS):
         try:
@@ -92,9 +92,11 @@ class MoonBoard:
         self.layout.cleanup_drivers()
         self.layout.start()
         self.animation = None
+    
+    def animate(self, myText):
+        self.layout.drawText(myText, x=17, y=12, color=COLORS.red)
 
     def clear(self):
-        self.stop_animation()
         self.layout.all_off()
         self.layout.push_to_driver()
 
@@ -117,47 +119,3 @@ class MoonBoard:
                     hold_colors.get(k, self.DEFAULT_PROBLEM_COLORS[k]),
                     )
         self.layout.push_to_driver()
-
-    def run_animation(self, animation, run_options={}, **kwds):
-        self.stop_animation()
-        self.animation = animation(self.layout, **kwds)
-        self.animation.run(**run_options)
-
-    def stop_animation(self):
-        if self.animation is not None:
-            self.animation.stop()
-
-
-class TestAnimation:
-    COLOR=[COLORS.Green, COLORS.Blue]
-    def __init__(self, layout, ):
-        self.layout = layout
-
-    def step(self, amt=1):
-        pass
-
-if __name__=="__main__":
-    import argparse
-    import time
-    import subprocess
-
-    parser = argparse.ArgumentParser(description='Test led system')
-
-    parser.add_argument('driver_type', type=str,
-                        help='driver type, depends on leds and device controlling the led.',choices=['PiWS281x', 'WS2801', 'SimPixel'])
-    parser.add_argument('--duration',  type=int, default=10,
-                        help='Delay of progress.')
-    parser.add_argument('--special_nest_layout',  action='store_true')
-    args = parser.parse_args()
-    
-    print("Test MOONBOARD LEDS\n===========")
-    led_layout = LED_LAYOUT['nest'] if args.special_nest_layout else None
-    MOONBOARD = MoonBoard(args.driver_type,led_layout )
-    print("Run animation,")
-    #animation=
-    #MoonBoard.run_animation()
-    #MOONBOARD.layout.fillScreen(COLORS.red)
-    #print(f"wait {args.duration} seconds,")
-    time.sleep(args.duration)
-    print("clear and exit.")
-    MOONBOARD.clear()
